@@ -1,0 +1,1 @@
+INSERT INTO new_table (id, description) VALUES (1, 'example description');

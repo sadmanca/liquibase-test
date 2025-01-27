@@ -1,0 +1,1 @@
+UPDATE new_table SET description = 'updated description' WHERE id = 1;

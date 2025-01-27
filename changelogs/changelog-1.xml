@@ -6,11 +6,51 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1" author="author">
+        <tagDatabase  tag="1"/>
         <sqlFile path="changelogs/sql/1-create-table.sql"/>
+        <rollback>
+            <sqlFile path="changelogs/sql/rollback-1-create-table.sql"/>
+        </rollback>
     </changeSet>
 
     <changeSet id="2" author="author">
+        <tagDatabase  tag="2"/>
         <sqlFile path="changelogs/sql/2-insert-data.sql"/>
+        <rollback>
+            <sqlFile path="changelogs/sql/rollback-2-insert-data.sql"/>
+        </rollback>
     </changeSet>
-    
+
+    <changeSet id="3" author="author">
+        <tagDatabase  tag="3"/>
+        <sqlFile path="changelogs/sql/3-create-new-table.sql"/>
+        <rollback>
+            <sqlFile path="changelogs/sql/rollback-3-create-new-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="4" author="author">
+        <tagDatabase  tag="4"/>
+        <sqlFile path="changelogs/sql/4-insert-into-new-table.sql"/>
+        <rollback>
+            <sqlFile path="changelogs/sql/rollback-4-insert-into-new-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="5" author="author">
+        <tagDatabase  tag="5"/>
+        <sqlFile path="changelogs/sql/5-update-new-table.sql"/>
+        <rollback>
+            <sqlFile path="changelogs/sql/rollback-5-update-new-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="6" author="author">
+        <tagDatabase  tag="6"/>
+        <sqlFile path="changelogs/sql/6-delete-from-new-table.sql"/>
+        <rollback>
+            <sqlFile path="changelogs/sql/rollback-6-delete-from-new-table.sql"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
