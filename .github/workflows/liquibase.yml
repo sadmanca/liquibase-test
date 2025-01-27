@@ -48,6 +48,7 @@ jobs:
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
+        classpath: "lib/mysql-connector-j-9.2.0.jar"
 
     - name: Run Liquibase Update-to-tag
       if: ${{ github.event.inputs.action == 'update_to_tag' && github.event.inputs.update-to-tag-value != '' }}
@@ -58,6 +59,7 @@ jobs:
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
         tag: ${{ github.event.inputs.update-to-tag-value }}
+        classpath: "lib/mysql-connector-j-9.2.0.jar"
 
     - name: Run Liquibase Rollback
       if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'timestamp' && github.event.inputs.rollback-value != '' }}
@@ -68,6 +70,7 @@ jobs:
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
         date: ${{ github.event.inputs.rollback-value }}
+        classpath: "lib/mysql-connector-j-9.2.0.jar"
 
     - name: Run Liquibase Rollback Count
       if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'count' && github.event.inputs.rollback-value != '' }}
@@ -78,6 +81,7 @@ jobs:
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
         count: ${{ github.event.inputs.rollback-value }}
+        classpath: "lib/mysql-connector-j-9.2.0.jar"
 
     - name: Run Liquibase Rollback Tag
       if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'tag' && github.event.inputs.rollback-value != '' }}
@@ -88,3 +92,4 @@ jobs:
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
         tag: ${{ github.event.inputs.rollback-value }}
+        classpath: "lib/mysql-connector-j-9.2.0.jar"
