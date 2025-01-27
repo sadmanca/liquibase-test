@@ -10,14 +10,24 @@ on:
         type: choice
         options:
           - update
+          - update_to_tag
           - rollback
-      rollback-type:
-        description: 'Type of rollback (timestamp, count, tag)'
+      update-to-tag-value:
+        description: 'Tag to update up to'
         required: false
         default: ''
-        type: string
+        type: string          
+      rollback-type:
+        description: 'Type of rollback (date/timestamp, count, tag)'
+        required: false
+        type: choice
+        default: 'count'
+        options:
+          - timestamp
+          - count
+          - tag
       rollback-value:
-        description: 'Value for rollback (timestamp, count, tag)'
+        description: 'Value for rollback (date/timestamp, count, tag)'
         required: false
         default: ''
         type: string
@@ -30,19 +40,51 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Liquibase
-      uses: liquibase/liquibase-github-action@v3.1.1
+    - name: Run Liquibase Update
+      if: ${{ github.event.inputs.action == 'update' }}
+      uses: liquibase-github-actions/update@v4.31.0
+      with:
+        changelogFile: changelog-master.xml
+        url: ${{ secrets.JDBC_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
 
-    - name: Run Liquibase
-      run: |
-        if [ "${{ github.event.inputs.action }}" == "update" ]; then
-          liquibase update --changelog-file=changelog-master.xml
-        elif [ "${{ github.event.inputs.action }}" == "rollback" ]; then
-          if [ "${{ github.event.inputs.rollback-type }}" == "timestamp" ]; then
-            liquibase rollback ${GITHUB_EVENT_INPUTS_ROLLBACK_VALUE} --changelog-file=changelog-master.xml
-          elif [ "${{ github.event.inputs.rollback-type }}" == "count" ]; then
-            liquibase rollbackCount ${GITHUB_EVENT_INPUTS_ROLLBACK_VALUE} --changelog-file=changelog-master.xml
-          elif [ "${{ github.event.inputs.rollback-type }}" == "tag" ]; then
-            liquibase rollback ${GITHUB_EVENT_INPUTS_ROLLBACK_VALUE} --changelog-file=changelog-master.xml
-          fi
-        fi
+    - name: Run Liquibase Update-to-tag
+      if: ${{ github.event.inputs.action == 'update_to_tag' && github.event.inputs.update-to-tag-value != '' }}
+      uses: liquibase-github-actions/update-to-tag@v4.31.0
+      with:
+        changelogFile: changelog-master.xml
+        url: ${{ secrets.JDBC_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
+        tag: ${{ github.event.inputs.update-to-tag-value }}
+
+    - name: Run Liquibase Rollback
+      if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'timestamp' && github.event.inputs.rollback-value != '' }}
+      uses: liquibase-github-actions/rollback-to-date@v4.31.0
+      with:
+        changelogFile: changelog-master.xml
+        url: ${{ secrets.JDBC_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
+        date: ${{ github.event.inputs.rollback-value }}
+
+    - name: Run Liquibase Rollback Count
+      if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'count' && github.event.inputs.rollback-value != '' }}
+      uses: liquibase-github-actions/rollback-count@v4.31.0
+      with:
+        changelogFile: changelog-master.xml
+        url: ${{ secrets.JDBC_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
+        count: ${{ github.event.inputs.rollback-value }}
+
+    - name: Run Liquibase Rollback Tag
+      if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'tag' && github.event.inputs.rollback-value != '' }}
+      uses: liquibase-github-actions/rollback@v4.31.0
+      with:
+        changelogFile: changelog-master.xml
+        url: ${{ secrets.JDBC_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
+        tag: ${{ github.event.inputs.rollback-value }}
