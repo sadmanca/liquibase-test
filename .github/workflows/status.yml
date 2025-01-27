@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Liquibase
-      uses: liquibase/liquibase-github-action@v3.1.1
+      uses: liquibase/liquibase-github-action@v4.31.0
 
     - name: Run Liquibase Status
       run: |
