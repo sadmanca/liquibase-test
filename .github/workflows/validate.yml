@@ -19,3 +19,4 @@ jobs:
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
+        classpath: "lib/mysql-connector-j-9.2.0.jar"
