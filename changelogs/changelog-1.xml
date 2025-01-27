@@ -5,52 +5,70 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="1" author="author">
-        <tagDatabase  tag="1"/>
+    <changeSet id="1" author="shossain" labels="1">
         <sqlFile path="changelogs/sql/1-create-table.sql"/>
         <rollback>
             <sqlFile path="changelogs/sql/rollback-1-create-table.sql"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="2" author="author">
-        <tagDatabase  tag="2"/>
+    <changeSet id="tagDatabase-1" author="shossain">
+        <tagDatabase tag="tag-1"/>
+    </changeSet>
+
+    <changeSet id="2" author="shossain" labels="2">
         <sqlFile path="changelogs/sql/2-insert-data.sql"/>
         <rollback>
             <sqlFile path="changelogs/sql/rollback-2-insert-data.sql"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="3" author="author">
-        <tagDatabase  tag="3"/>
+    <changeSet id="tagDatabase-2" author="shossain">
+        <tagDatabase tag="tag-2"/>
+    </changeSet>
+
+    <changeSet id="3" author="shossain" labels="3">
         <sqlFile path="changelogs/sql/3-create-new-table.sql"/>
         <rollback>
             <sqlFile path="changelogs/sql/rollback-3-create-new-table.sql"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="4" author="author">
-        <tagDatabase  tag="4"/>
+    <changeSet id="tagDatabase-3" author="shossain">
+        <tagDatabase tag="tag-3"/>
+    </changeSet>
+
+    <changeSet id="4" author="shossain" labels="4">
         <sqlFile path="changelogs/sql/4-insert-into-new-table.sql"/>
         <rollback>
             <sqlFile path="changelogs/sql/rollback-4-insert-into-new-table.sql"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="5" author="author">
-        <tagDatabase  tag="5"/>
+    <changeSet id="tagDatabase-4" author="shossain">
+        <tagDatabase tag="tag-4"/>
+    </changeSet>
+
+    <changeSet id="5" author="shossain" labels="5">
         <sqlFile path="changelogs/sql/5-update-new-table.sql"/>
         <rollback>
             <sqlFile path="changelogs/sql/rollback-5-update-new-table.sql"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="6" author="author">
-        <tagDatabase  tag="6"/>
+    <changeSet id="tagDatabase-5" author="shossain">
+        <tagDatabase tag="tag-5"/>
+    </changeSet>
+
+    <changeSet id="6" author="shossain" labels="6">
         <sqlFile path="changelogs/sql/6-delete-from-new-table.sql"/>
         <rollback>
             <sqlFile path="changelogs/sql/rollback-6-delete-from-new-table.sql"/>
         </rollback>
+    </changeSet>
+
+    <changeSet id="tagDatabase-6" author="shossain">
+        <tagDatabase tag="tag-6"/>
     </changeSet>
 
 </databaseChangeLog>
