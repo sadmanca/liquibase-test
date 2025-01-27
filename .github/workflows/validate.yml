@@ -12,9 +12,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Liquibase
-      uses: liquibase/liquibase-github-action@v4.31.0
-
     - name: Run Liquibase Validate
-      run: |
-        liquibase validate --changelog-file=changelog-master.xml
+      uses: liquibase-github-actions/validate@v4.31.0
+      with:
+        changelogFile: changelog-master.xml
+        url: ${{ secrets.JDBC_URL }}
+        username: ${{ secrets.DB_USER }}
+        password: ${{ secrets.DB_PASS }}
