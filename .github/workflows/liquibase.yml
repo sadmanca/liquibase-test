@@ -44,7 +44,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'update' }}
       uses: liquibase-github-actions/update@v4.31.0
       with:
-        changelogFile: changelog-master.xml
+        changelogFile: main-changelog.xml
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
@@ -53,7 +53,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'update_to_tag' && github.event.inputs.update-to-tag-value != '' }}
       uses: liquibase-github-actions/update-to-tag@v4.31.0
       with:
-        changelogFile: changelog-master.xml
+        changelogFile: main-changelog.xml
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
@@ -63,7 +63,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'timestamp' && github.event.inputs.rollback-value != '' }}
       uses: liquibase-github-actions/rollback-to-date@v4.31.0
       with:
-        changelogFile: changelog-master.xml
+        changelogFile: main-changelog.xml
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
@@ -73,7 +73,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'count' && github.event.inputs.rollback-value != '' }}
       uses: liquibase-github-actions/rollback-count@v4.31.0
       with:
-        changelogFile: changelog-master.xml
+        changelogFile: main-changelog.xml
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
@@ -83,7 +83,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'rollback' && github.event.inputs.rollback-type == 'tag' && github.event.inputs.rollback-value != '' }}
       uses: liquibase-github-actions/rollback@v4.31.0
       with:
-        changelogFile: changelog-master.xml
+        changelogFile: main-changelog.xml
         url: ${{ secrets.JDBC_URL }}
         username: ${{ secrets.DB_USER }}
         password: ${{ secrets.DB_PASS }}
