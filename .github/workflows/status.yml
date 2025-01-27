@@ -1,0 +1,20 @@
+name: Liquibase Status
+
+on:
+  push:
+  workflow_dispatch: {}
+
+jobs:
+  liquibase-status:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Liquibase
+      uses: liquibase/liquibase-github-action@v3.1.1
+
+    - name: Run Liquibase Status
+      run: |
+        liquibase status --changelog-file=changelog-master.xml

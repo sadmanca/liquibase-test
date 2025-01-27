@@ -1,0 +1,1 @@
+INSERT INTO example_table (id, name) VALUES (1, 'example');

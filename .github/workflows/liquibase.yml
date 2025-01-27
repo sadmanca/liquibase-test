@@ -1,0 +1,48 @@
+name: Liquibase Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'update'
+        type: choice
+        options:
+          - update
+          - rollback
+      rollback-type:
+        description: 'Type of rollback (timestamp, count, tag)'
+        required: false
+        default: ''
+        type: string
+      rollback-value:
+        description: 'Value for rollback (timestamp, count, tag)'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  liquibase:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Liquibase
+      uses: liquibase/liquibase-github-action@v3.1.1
+
+    - name: Run Liquibase
+      run: |
+        if [ "${{ github.event.inputs.action }}" == "update" ]; then
+          liquibase update --changelog-file=changelog-master.xml
+        elif [ "${{ github.event.inputs.action }}" == "rollback" ]; then
+          if [ "${{ github.event.inputs.rollback-type }}" == "timestamp" ]; then
+            liquibase rollback ${GITHUB_EVENT_INPUTS_ROLLBACK_VALUE} --changelog-file=changelog-master.xml
+          elif [ "${{ github.event.inputs.rollback-type }}" == "count" ]; then
+            liquibase rollbackCount ${GITHUB_EVENT_INPUTS_ROLLBACK_VALUE} --changelog-file=changelog-master.xml
+          elif [ "${{ github.event.inputs.rollback-type }}" == "tag" ]; then
+            liquibase rollback ${GITHUB_EVENT_INPUTS_ROLLBACK_VALUE} --changelog-file=changelog-master.xml
+          fi
+        fi

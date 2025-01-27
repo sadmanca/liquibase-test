@@ -1,0 +1,20 @@
+name: Liquibase Validate
+
+on:
+  push:
+  workflow_dispatch: {}
+
+jobs:
+  liquibase-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Liquibase
+      uses: liquibase/liquibase-github-action@v3.1.1
+
+    - name: Run Liquibase Validate
+      run: |
+        liquibase validate --changelog-file=changelog-master.xml
