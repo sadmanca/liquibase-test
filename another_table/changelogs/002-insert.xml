@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet author="shossain" id="001-create">
+    <changeSet author="shossain" id="002-insert">
         <sql>
 
         INSERT INTO example_table (id, name) VALUES (1, 'example');
