@@ -19,5 +19,5 @@
         
         </sql>
         </rollback>
-    <changeSet/>
+    </changeSet>
 </databaseChangeLog>
