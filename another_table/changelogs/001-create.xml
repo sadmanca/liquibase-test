@@ -22,4 +22,5 @@
         
         </sql>
         </rollback>
+    <changeSet/>
 </databaseChangeLog>
